@@ -1,6 +1,10 @@
 "use client";
 
-import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
+import {
+  CssBaseline,
+  GlobalStyles,
+  ThemeProvider as MuiThemeProvider,
+} from "@mui/material";
 import { lightTheme } from "@/theme";
 
 interface ThemeProviderProps {
@@ -11,6 +15,11 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   return (
     <MuiThemeProvider theme={lightTheme}>
       <CssBaseline />
+      <GlobalStyles
+        styles={{
+          body: { background: "#ffffff" },
+        }}
+      />
       {children}
     </MuiThemeProvider>
   );

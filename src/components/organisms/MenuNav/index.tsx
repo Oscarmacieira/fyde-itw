@@ -63,34 +63,7 @@ export default function MenuNav({ menus }: MenuNavProps) {
       }}
     >
       <MenuNavHeader>
-        <Stack
-          direction={"row"}
-          spacing={3}
-          alignItems={"center"}
-          justifyContent={"flex-start"}
-          width={"100%"}
-          ml={2}
-        >
-          <IconButton
-            sx={{
-              bgcolor: (theme) => theme.palette.primary.main + "1a",
-              color: "primary.main",
-            }}
-            size="small"
-          >
-            <ArrowBack />
-          </IconButton>
-          <Typography variant="h6" fontWeight={"bold"}>
-            Project CRM
-          </Typography>
-          <IconButton
-            disableRipple
-            size="small"
-            sx={{ bgcolor: "primary.main", color: "white" }}
-          >
-            <Add />
-          </IconButton>
-        </Stack>
+        
       </MenuNavHeader>
       <Divider />
       <List component="nav" aria-labelledby="nested-list-subheader">

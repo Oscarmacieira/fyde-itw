@@ -12,7 +12,11 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>
+      <body
+        style={{
+          background: "#ffffff",
+        }}
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

@@ -16,7 +16,13 @@ const tabsData = [
 
 export default function ProjectTabs({ value, handleChange }: ProjectTabsProps) {
   return (
-    <Box sx={{ maxWidth: { xs: 360, sm: 480, md: "100%" } }}>
+    <Box
+      sx={{
+        maxWidth: { xs: 360, sm: 480, md: "100%" },
+        position: "relative",
+        top: -10,
+      }}
+    >
       <Tabs
         value={value}
         onChange={handleChange}
@@ -40,9 +46,10 @@ export default function ProjectTabs({ value, handleChange }: ProjectTabsProps) {
             icon={tab.icon}
             iconPosition="start"
             sx={{
-              boxShadow: "0px 0px 40px 0px rgba(0,0,0,0.09);",
+              position: "relative",
+              boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.06);",
+              my: 2,
               mx: 2,
-              my: 4,
               borderRadius: 4,
               minHeight: 0,
               color: "black",

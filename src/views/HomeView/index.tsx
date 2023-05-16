@@ -1,168 +1,154 @@
 "use client";
 
-import { SearchBar } from "@/components";
-import { Check, KeyboardArrowDownOutlined, Pause } from "@mui/icons-material";
 import {
-  Avatar,
+  InfoCard,
+  TaskDescription,
+  TaskListCard,
+  TaskTracker,
+  UserAvatar,
+  UserInfo,
+} from "@/components";
+import {
   Box,
   Button,
   Divider,
   Grid,
   IconButton,
   ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
   Stack,
   Theme,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
-import Image from "next/image";
+
 import ProjectTabs from "./components/ProjectTabs";
+import Homebar from "./components/Homebar";
+import InfoCards from "./components/InfoCards";
+import TaskList from "@/components/organisms/TaskList";
+import { TASKS } from "@/constants/tasks";
+import Footer from "./components/Footer";
+import { ArrowForward, MoreHoriz } from "@mui/icons-material";
+import { USERS } from "@/constants/users";
 
 export default function HomeView() {
   const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
 
   return (
     <main>
-      <Stack
-        gap={isSm ? 1 : 2}
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"flex-start"}
-        direction={isSm ? "column" : "row"}
-      >
-        <SearchBar
-          inputBaseProps={{
-            placeholder: "Search in CRM…",
-          }}
-        />
-        {!isSm && <Box flexGrow={1} />}
+      <Homebar />
 
-        <Stack
-          direction={"row"}
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"flex-end"}
-          gap={2}
-        >
-          <ListItem disableGutters sx={{ width: "fit-content" }}>
-            <ListItemAvatar>
-              <IconButton>
-                <Avatar sx={{ bgcolor: "primary.main" }}>
-                  <Pause />
-                </Avatar>
-              </IconButton>
-            </ListItemAvatar>
-
-            <ListItemText
-              primary={
-                <Box
-                  bgcolor={"primary.light"}
-                  sx={{ fontSize: "1.3rem" }}
-                  width={"fit-content"}
-                >
-                  1:34
-                </Box>
-              }
-            />
-          </ListItem>
-          <ListItemButton
-            sx={{
-              borderRadius: 2,
-              width: "fit-content",
-            }}
-          >
-            <ListItem
-              disableGutters
-              secondaryAction={<KeyboardArrowDownOutlined />}
-              sx={{
-                width: "fit-content",
-              }}
-            >
-              {!isSm && (
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: "secondary.main" }}>
-                    <Check />
-                  </Avatar>
-                </ListItemAvatar>
-              )}
-
-              <ListItemText
-                primary={!isSm && "Project CRM"}
-                secondary={"Task #78"}
-                primaryTypographyProps={{
-                  variant: "subtitle2",
-                  sx: {
-                    opacity: 0.5,
-                  },
-                }}
-                secondaryTypographyProps={{
-                  sx: {
-                    color: "primary.main",
-                    fontWeight: "bold",
-                  },
-                  variant: "subtitle1",
-                }}
-              />
-            </ListItem>
-          </ListItemButton>
-          <ListItemButton
-            sx={{
-              borderRadius: 2,
-              width: "fit-content",
-            }}
-          >
-            <ListItem
-              disableGutters
-              secondaryAction={<KeyboardArrowDownOutlined />}
-              sx={{
-                width: "fit-content",
-              }}
-            >
-              {!isSm && (
-                <ListItemAvatar>
-                  <Avatar
-                    sx={{ bgcolor: "secondary.main" }}
-                    srcSet={
-                      "https://s2.qwant.com/thumbr/0x380/d/c/01adb6443bbe09e66fb6b22749f291c75bbb9a18d3d60fecdb885fe25664da/1625509593529.jpg?u=https%3A%2F%2Fmedia.licdn.com%2Fdms%2Fimage%2FC4E03AQE4osjvY8jSdg%2Fprofile-displayphoto-shrink_800_800%2F0%2F1625509593529%3Fe%3D2147483647%26v%3Dbeta%26t%3DH6jbW9N0Aug6cC1vvzTfmKezBDBgsIuh4Py76xDBM_A&q=0&b=1&p=0&a=0"
-                    }
-                  ></Avatar>
-                </ListItemAvatar>
-              )}
-
-              <ListItemText
-                sx={{
-                  width: "fit-content",
-                }}
-                primary={!isSm && "User"}
-                secondary={"Oscar M."}
-                primaryTypographyProps={{
-                  variant: "subtitle2",
-                  sx: {
-                    opacity: 0.5,
-                  },
-                }}
-                secondaryTypographyProps={{
-                  sx: {
-                    fontWeight: "bold",
-                  },
-                  variant: "subtitle1",
-                }}
-              />
-            </ListItem>
-          </ListItemButton>
-        </Stack>
-      </Stack>
       <Grid container>
-        <Grid item xs={12} sm={12} md={9} lg={9}>
+        <Grid item xs={12} sm={12} md={8} lg={8} overflow={"scroll"}>
           <ProjectTabs
             value={1}
             handleChange={() => console.log("handleChange")}
           />
           <Divider />
+          <InfoCards />
+          <TaskList tasks={TASKS} />
+          <Footer />
         </Grid>
-        <Grid item xs={12} sm={12} md={3} lg={3}></Grid>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={3.3}
+          lg={3.3}
+          height={"100%"}
+          sx={{ mr: 0, ml: "auto", mt: isSm ? 2 : 0, gap: 2 }}
+          display={"flex"}
+          flexDirection={"column"}
+        >
+          <Stack
+            direction={"row"}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Typography variant="h5" fontWeight={900} component="div">
+              Time Tracking
+            </Typography>
+            <Button
+              variant="outlined"
+              size="large"
+              sx={{
+                color: "primary.main",
+                borderRadius: 50,
+              }}
+              endIcon={<ArrowForward />}
+            >
+              Hide Window
+            </Button>
+          </Stack>
+          <TaskTracker />
+          <Stack
+            direction={"row"}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Typography variant="h5" fontWeight={900} component="div">
+              Task Description
+            </Typography>
+            <IconButton
+              sx={{
+                bgcolor: "primary.light",
+                borderRadius: 2,
+                color: "primary.main",
+              }}
+            >
+              <MoreHoriz />
+            </IconButton>
+          </Stack>
+          <Divider />
+          <Stack
+            direction={"row"}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <ListItem disableGutters>
+              <UserAvatar srcSet={USERS[0].src} />
+              <UserInfo primary={"Contractor"} secondary={USERS[0].name} />
+            </ListItem>
+            <Divider orientation="vertical" flexItem />
+            <ListItem disableGutters>
+              <UserInfo
+                primary={"Contractor"}
+                secondary={USERS[1].name}
+                align="right"
+              />
+              <UserAvatar sx={{ ml: 2 }} srcSet={USERS[1].src} />
+            </ListItem>
+          </Stack>
+          <TaskDescription />
+          <Stack
+            direction={"row"}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Box>
+              <Typography sx={{ opacity: 0.55 }} component="div">
+                Created 25 Aug 2021 at 12:00
+              </Typography>
+              <Typography sx={{ opacity: 0.55 }} component="div">
+                Updated 25 Aug 2021 at 12:00
+              </Typography>
+            </Box>
+            <Button
+              variant="outlined"
+              size="large"
+              color="error"
+              sx={{
+                color: "error.main",
+                borderRadius: 50,
+              }}
+            >
+              Delete Task
+            </Button>
+          </Stack>
+        </Grid>
       </Grid>
     </main>
   );
