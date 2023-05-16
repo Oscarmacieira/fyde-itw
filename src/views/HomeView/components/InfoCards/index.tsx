@@ -10,15 +10,15 @@ const infoCards = [
     sign: "h",
   },
   {
-    primary: "Yours & total time",
-    secondary: "03:09",
-    third: "05:21",
+    primary: "Yours & total earnings",
+    secondary: "1,695.00",
+    third: "4,695.00",
     sign: "$",
   },
   {
     primary: "Yours & total time",
-    secondary: "03:09",
-    third: "05:21",
+    secondary: "34%",
+    third: "34/100",
     sign: "%",
   },
 ];
