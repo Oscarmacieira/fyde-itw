@@ -38,7 +38,7 @@ export default function TaskList({
 
   return (
     <React.Fragment>
-      <Toolbar sx={{ px: 0 }}>
+      <Toolbar sx={{ px: 0, py: 0 }}>
         <Stack
           width={"100%"}
           direction={isSm ? "column" : "row"}
@@ -121,7 +121,7 @@ export default function TaskList({
           ))}
         </TransitionGroup>
 
-        <Divider sx={{ my: 2 }} />
+        <Divider sx={{ mb: 2, mt: 1 }} />
         <TaskListCard task={tasks?.[0]} done={true} selected={false} />
       </Stack>
     </React.Fragment>

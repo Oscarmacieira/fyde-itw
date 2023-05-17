@@ -29,7 +29,7 @@ export default function InfoCards() {
     <Grid
       container
       gap={isSm ? 2 : 2}
-      py={4}
+      py={2}
       columns={10}
       display={"flex"}
       width={"100%"}

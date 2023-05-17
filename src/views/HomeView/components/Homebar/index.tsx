@@ -10,7 +10,7 @@ export default function Homebar() {
   const { isSm } = useBreakpoints();
   return (
     <Stack
-      gap={isSm ? 1 : 2}
+      gap={isSm ? 0 : 2}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"flex-start"}
@@ -28,7 +28,7 @@ export default function Homebar() {
         display={"flex"}
         alignItems={"center"}
         justifyContent={"flex-end"}
-        gap={2}
+        gap={isSm ? 1 : 2}
       >
         <TaskTimer />
 

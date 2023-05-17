@@ -41,6 +41,7 @@ export default function TaskDetails() {
                 borderRadius: 2,
                 color: "primary.main",
               }}
+              size="small"
             >
               <MoreHoriz />
             </IconButton>
@@ -59,7 +60,7 @@ export default function TaskDetails() {
                 secondary={selectedTask?.contractor.name}
               />
             </ListItem>
-            <Divider orientation="vertical" flexItem />
+            <Divider orientation="vertical" flexItem sx={{ my: 2 }} />
             <ListItem disableGutters>
               <UserInfo
                 primary={"Author"}

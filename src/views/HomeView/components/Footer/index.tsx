@@ -7,6 +7,9 @@ export default function Footer() {
     <Toolbar
       sx={{
         width: "100%",
+        mx: "auto",
+        pb: 2,
+        pt: isSm ? 2 : 0,
       }}
     >
       <Typography
@@ -15,11 +18,11 @@ export default function Footer() {
         textAlign={"center"}
         component={"div"}
         width={"100%"}
-        pt={isSm ? 1 : 0}
+        pt={0}
         lineHeight={1.5}
       >
         © Integrated by <i>Oscarmac</i>, designed by <i>Nikolay K</i>,{" "}
-        {new Date().getFullYear()} - <Link>Do you need help ?</Link>
+        {new Date().getFullYear()} <Link>Do you need help ?</Link>
       </Typography>
     </Toolbar>
   );

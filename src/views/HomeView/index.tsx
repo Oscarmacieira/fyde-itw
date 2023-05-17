@@ -11,13 +11,14 @@ import TimeTracking from "./components/TimeTracking";
 import TaskDetails from "./components/TaskDetails";
 import { useBreakpoints, useTask } from "@/hooks";
 import { tTask } from "@/types";
+import React from "react";
 
 export default function HomeView() {
   const { isSm } = useBreakpoints();
   const { tasks, selectedTask, selectTask, cloneTask, deleteTask } = useTask();
 
   return (
-    <main>
+    <React.Fragment>
       <Homebar />
       <Grid container>
         <Grid
@@ -42,7 +43,7 @@ export default function HomeView() {
           />
           {!isSm && <Footer />}
         </Grid>
-        <Slide direction="left" in={selectedTask ? true : false}>
+        <Slide direction="left" in={selectedTask ? true : false} unmountOnExit>
           <Grid
             item
             xs={12}
@@ -61,6 +62,6 @@ export default function HomeView() {
 
         {isSm && <Footer />}
       </Grid>
-    </main>
+    </React.Fragment>
   );
 }

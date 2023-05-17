@@ -29,7 +29,7 @@ export default function TaskTracker({ task }: TaskTrackerProps) {
         bgcolor: "primary.light",
         position: "relative",
         p: 2,
-        gap: 2,
+        gap: 1,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

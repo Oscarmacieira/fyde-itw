@@ -143,8 +143,10 @@ export default function ResponsiveDrawer({
         component="main"
         sx={{
           flexGrow: 1,
-          p: 2,
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+          maxWidth: "100vw",
+          p: 2,
+          py: isSm ? 2 : 0,
         }}
       >
         <Toolbar

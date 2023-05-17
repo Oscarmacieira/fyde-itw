@@ -26,6 +26,7 @@ const NavigationProvider: React.FC<NavigationProviderProps> = ({
   );
 
   const handleDrawerToggle = () => {
+    if (!isSm) return;
     setMobileOpen(!mobileOpen);
   };
 

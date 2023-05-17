@@ -48,7 +48,7 @@ export default function ProjectTabs({ value, handleChange }: ProjectTabsProps) {
             sx={{
               position: "relative",
               boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.06);",
-              my: 2,
+              my: 1,
               mx: 2,
               borderRadius: 4,
               minHeight: 0,
