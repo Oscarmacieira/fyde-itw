@@ -1,79 +1,97 @@
 "use client";
 
+import React from "react";
+import { tMenu, tMenuList } from "@/types";
 import {
-  Box,
+  Add,
+  AppRegistration,
+  ArrowBack,
+  ExpandLess,
+  ExpandMore,
+} from "@mui/icons-material";
+import {
   Button,
   Collapse,
-  Divider,
-  Drawer,
+  Container,
+  Grid,
+  Stack,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  Box,
   IconButton,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Paper,
-  Stack,
-  Typography,
+  Divider,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { MenuNavHeader } from "./style";
-import { Add, ArrowBack, ExpandLess, ExpandMore } from "@mui/icons-material";
-import React from "react";
-import { tMenuList } from "@/types";
+import { useBreakpoints, useNavigation } from "@/hooks";
 
-interface MenuNavProps {
-  menus: tMenuList[];
-}
-
-export default function MenuNav({ menus }: MenuNavProps) {
-  const [open, setOpen] = React.useState<number | undefined>(undefined);
-  const [selectedIndex, setSelectedIndex] = React.useState<number | undefined>(
-    undefined
-  );
-
-  const handleClick = (val: number | undefined) => {
-    if (open === val) {
-      setOpen(undefined);
-    } else {
-      setOpen(val);
-    }
-  };
-
-  const handleSelected = (val: number | undefined) => {
-    setSelectedIndex(val);
-  };
-
-  function isSelected(val: number) {
-    return open === val;
-  }
-
-  function isSubMenuSelected(mainIndex: number, secondaryIndex: number) {
-    return secondaryIndex === selectedIndex && open === mainIndex;
-  }
+export default function MenuNav({}) {
+  const { isSm } = useBreakpoints();
+  const {
+    isSubMenuSelected,
+    isMenuCollapsed,
+    handleMenuClick,
+    handleCollapseClick,
+    handleDrawerToggle,
+    mobileOpen,
+    collapsedMenu,
+    selectedMenu,
+    subMenus,
+  } = useNavigation();
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        borderRadius: 0,
-        minHeight: "100vh",
-        bgcolor: "#eef3fe",
-      }}
-    >
-      <MenuNavHeader>
-        
-      </MenuNavHeader>
+    <Box width="100%" bgcolor={"#eef3fe"} height={"100%"} position={"relative"}>
+      <Toolbar>
+        <Stack
+          direction={"row"}
+          spacing={3}
+          alignItems={"center"}
+          justifyContent={"flex-start"}
+          width={"100%"}
+        >
+          <IconButton
+            sx={{
+              bgcolor: (theme) => theme.palette.primary.main + "1a",
+              color: "primary.main",
+            }}
+            size="small"
+            onClick={() => {
+              if (isSm) {
+                handleDrawerToggle();
+              }
+            }}
+          >
+            <ArrowBack />
+          </IconButton>
+          <Typography variant="h6" fontWeight={"bold"}>
+            Project CRM
+          </Typography>
+          <IconButton
+            disableRipple
+            size="small"
+            sx={{ bgcolor: "primary.main", color: "white" }}
+          >
+            <Add />
+          </IconButton>
+        </Stack>
+      </Toolbar>
       <Divider />
-      <List component="nav" aria-labelledby="nested-list-subheader">
-        {menus?.map((menu, index) => (
+      <List
+        sx={{
+          width: "100%",
+        }}
+      >
+        {subMenus?.map((menu, index) => (
           <React.Fragment key={menu.id}>
             <ListItemButton
-              onClick={() => handleClick(index)}
+              onClick={() => {
+                handleCollapseClick(index);
+              }}
               sx={{
                 height: 70,
-                pl: 5,
               }}
             >
               {menu.icon && <ListItemIcon sx={{}}>{menu.icon}</ListItemIcon>}
@@ -81,9 +99,9 @@ export default function MenuNav({ menus }: MenuNavProps) {
                 primary={menu.name}
                 primaryTypographyProps={{
                   sx: {
-                    transition: "all 0.3s ease",
+                    transition: "all 0.2s ease-in-out",
                   },
-                  fontWeight: isSelected(index) ? "bold" : "normal",
+                  fontWeight: isMenuCollapsed(index) ? "bold" : "normal",
                 }}
               />
               <IconButton
@@ -93,24 +111,34 @@ export default function MenuNav({ menus }: MenuNavProps) {
                 }}
                 size="small"
               >
-                {isSelected(index) ? <ExpandLess /> : <ExpandMore />}
+                {isMenuCollapsed(index) ? <ExpandLess /> : <ExpandMore />}
               </IconButton>
             </ListItemButton>
-            <Collapse in={isSelected(index)} timeout="auto" unmountOnExit>
+            {index !== subMenus.length - 1 && <Divider sx={{ mx: 2 }} />}
+            <Collapse in={isMenuCollapsed(index)} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {menu.subMenus?.map((subMenu, subIndex) => (
                   <ListItemButton
                     sx={{ pl: 8 }}
                     key={`sub-${subMenu.id}`}
-                    onClick={() => handleSelected(subIndex)}
+                    onClick={() => {
+                      handleMenuClick({
+                        main: index,
+                        sub: subIndex,
+                      });
+                      handleDrawerToggle();
+                    }}
                   >
                     <ListItemText
                       primary={subMenu.name}
                       primaryTypographyProps={{
                         sx: {
-                          transition: "all 0.3s ease",
+                          transition: "all 0.2s ease-in-out",
                         },
-                        fontWeight: isSubMenuSelected(index, subIndex)
+                        fontWeight: isSubMenuSelected({
+                          main: index,
+                          sub: subIndex,
+                        })
                           ? "bold"
                           : "normal",
                       }}
@@ -122,6 +150,20 @@ export default function MenuNav({ menus }: MenuNavProps) {
           </React.Fragment>
         ))}
       </List>
-    </Paper>
+      <Button
+        startIcon={<Add />}
+        variant={"contained"}
+        endIcon={<AppRegistration />}
+        sx={{
+          position: "absolute",
+          bottom: 20,
+          width: 255,
+          mx: 2,
+          py: 1.75,
+        }}
+      >
+        Create New Project
+      </Button>
+    </Box>
   );
 }

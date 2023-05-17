@@ -7,55 +7,75 @@ import {
   ListItem,
   Box,
   Button,
+  Zoom,
+  Grow,
 } from "@mui/material";
-import { MoreHoriz } from "@mui/icons-material";
+import { MoreHoriz, Task } from "@mui/icons-material";
 import { USERS } from "@/constants/users";
 import { TaskDescription, UserAvatar, UserInfo } from "@/components";
+import { useTask } from "@/hooks";
 
 export default function TaskDetails() {
+  const { deleteTask, selectedTask } = useTask();
+
+  const onClickDelete = () => {
+    if (selectedTask) deleteTask(selectedTask);
+  };
+
   return (
     <React.Fragment>
-      <Stack
-        direction={"row"}
-        display="flex"
-        alignItems={"center"}
-        justifyContent={"space-between"}
-      >
-        <Typography variant="h5" fontWeight={900} component="div">
-          Task Description
-        </Typography>
-        <IconButton
-          sx={{
-            bgcolor: "primary.light",
-            borderRadius: 2,
-            color: "primary.main",
-          }}
-        >
-          <MoreHoriz />
-        </IconButton>
-      </Stack>
-      <Divider />
-      <Stack
-        direction={"row"}
-        display="flex"
-        alignItems={"center"}
-        justifyContent={"space-between"}
-      >
-        <ListItem disableGutters>
-          <UserAvatar srcSet={USERS[0].src} />
-          <UserInfo primary={"Contractor"} secondary={USERS[0].name} />
-        </ListItem>
-        <Divider orientation="vertical" flexItem />
-        <ListItem disableGutters>
-          <UserInfo
-            primary={"Contractor"}
-            secondary={USERS[1].name}
-            align="right"
-          />
-          <UserAvatar sx={{ ml: 2 }} srcSet={USERS[1].src} />
-        </ListItem>
-      </Stack>
-      <TaskDescription />
+      <Grow in={true}>
+        <Box>
+          <Stack
+            direction={"row"}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <Typography variant="h5" fontWeight={900} component="div">
+              Task Description
+            </Typography>
+            <IconButton
+              sx={{
+                bgcolor: "primary.light",
+                borderRadius: 2,
+                color: "primary.main",
+              }}
+            >
+              <MoreHoriz />
+            </IconButton>
+          </Stack>
+          <Divider />
+          <Stack
+            direction={"row"}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <ListItem disableGutters>
+              <UserAvatar srcSet={selectedTask?.contractor.src || ""} />
+              <UserInfo
+                primary={"Contractor"}
+                secondary={selectedTask?.contractor.name}
+              />
+            </ListItem>
+            <Divider orientation="vertical" flexItem />
+            <ListItem disableGutters>
+              <UserInfo
+                primary={"Author"}
+                secondary={selectedTask?.author.name}
+                align="right"
+              />
+              <UserAvatar
+                sx={{ ml: 2 }}
+                srcSet={selectedTask?.author.src || ""}
+              />
+            </ListItem>
+          </Stack>
+        </Box>
+      </Grow>
+
+      <TaskDescription task={selectedTask} />
       <Stack
         direction={"row"}
         display="flex"
@@ -64,10 +84,10 @@ export default function TaskDetails() {
       >
         <Box>
           <Typography sx={{ opacity: 0.55 }} component="div">
-            Created 25 Aug 2021 at 12:00
+            Created {selectedTask?.createdAt}
           </Typography>
           <Typography sx={{ opacity: 0.55 }} component="div">
-            Updated 25 Aug 2021 at 12:00
+            Updated {selectedTask?.updatedAt}
           </Typography>
         </Box>
         <Button
@@ -78,6 +98,7 @@ export default function TaskDetails() {
             color: "error.main",
             borderRadius: 50,
           }}
+          onClick={onClickDelete}
         >
           Delete Task
         </Button>

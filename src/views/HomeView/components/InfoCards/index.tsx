@@ -1,6 +1,6 @@
 import { InfoCard } from "@/components";
 import { useBreakpoints } from "@/hooks";
-import { Grid } from "@mui/material";
+import { Grid, Grow } from "@mui/material";
 
 const infoCards = [
   {
@@ -35,24 +35,26 @@ export default function InfoCards() {
       width={"100%"}
     >
       {infoCards.map((card, index) => (
-        <Grid
-          item
-          xs={10}
-          sm={10}
-          md={3}
-          lg={3}
-          xl={3}
-          key={index}
-          width={"100%"}
-          mx="auto"
-        >
-          <InfoCard
-            primary={card.primary}
-            secondary={card.secondary}
-            third={card.third}
-            sign={card.sign as unknown as "h" | "$" | "%"}
-          />
-        </Grid>
+        <Grow key={index} in={true} timeout={index * 500}>
+          <Grid
+            item
+            xs={10}
+            sm={10}
+            md={3}
+            lg={3}
+            xl={3}
+            key={index}
+            width={"100%"}
+            mx="auto"
+          >
+            <InfoCard
+              primary={card.primary}
+              secondary={card.secondary}
+              third={card.third}
+              sign={card.sign as unknown as "h" | "$" | "%"}
+            />
+          </Grid>
+        </Grow>
       ))}
     </Grid>
   );

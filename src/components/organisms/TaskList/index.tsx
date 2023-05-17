@@ -3,7 +3,9 @@ import { useBreakpoints } from "@/hooks";
 import { Add, GridView, Toc } from "@mui/icons-material";
 import {
   Box,
+  Collapse,
   Divider,
+  Grow,
   IconButton,
   Stack,
   Toolbar,
@@ -13,12 +15,25 @@ import React from "react";
 import { addButtonStyles } from "./style";
 import { USERS } from "@/constants/users";
 import { tTask } from "@/types";
+import { TransitionGroup } from "react-transition-group";
 
 interface TaskListProps {
   tasks?: tTask[];
+  selectedTask?: tTask;
+  onClickTask?: (task: tTask) => void;
+  onClickOpen?: (task: tTask) => void;
+  onClickDelete?: (task: tTask) => void;
+  onClickClone?: (task: tTask) => void;
 }
 
-export default function TaskList({ tasks }: TaskListProps) {
+export default function TaskList({
+  tasks,
+  selectedTask,
+  onClickTask,
+  onClickOpen,
+  onClickDelete,
+  onClickClone,
+}: TaskListProps) {
   const { isSm } = useBreakpoints();
 
   return (
@@ -82,11 +97,31 @@ export default function TaskList({ tasks }: TaskListProps) {
           </Stack>
         </Stack>
       </Toolbar>
-      <Stack direction={"column"} gap={2} py={2} width={"100%"}>
-        {tasks?.map((task, index) => (
-          <TaskListCard key={task.id} task={task} selected={index === 1} />
-        ))}
-        <Divider />
+      <Stack direction={"column"} width={"100%"}>
+        <TransitionGroup>
+          {tasks?.map((task, index) => (
+            <Grow in={true} timeout={index * 100} key={task.id}>
+              <Collapse
+                sx={{
+                  gap: 2,
+                  py: 1,
+                }}
+                in={true}
+              >
+                <TaskListCard
+                  task={task}
+                  selected={task === selectedTask}
+                  onClick={() => onClickTask?.(task)}
+                  onClickClone={() => onClickClone?.(task)}
+                  onClickDelete={() => onClickDelete?.(task)}
+                  onClickOpen={() => onClickOpen?.(task)}
+                />
+              </Collapse>
+            </Grow>
+          ))}
+        </TransitionGroup>
+
+        <Divider sx={{ my: 2 }} />
         <TaskListCard task={tasks?.[0]} done={true} selected={false} />
       </Stack>
     </React.Fragment>

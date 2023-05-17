@@ -13,7 +13,8 @@ export const TASKS: tTask[] = [
     users: [USERS[0], USERS[1]],
     contractor: USERS[2],
     author: USERS[3],
-    imgSrc: "https://via.placeholder.com/150",
+    imgSrc:
+      "https://img.freepik.com/free-vector/vector-illustration-mountain-landscape_1441-72.jpg?w=2000",
     time: "02:45",
   },
   {
@@ -27,7 +28,7 @@ export const TASKS: tTask[] = [
     users: [USERS[4], USERS[3]],
     contractor: USERS[3],
     author: USERS[0],
-    imgSrc: "https://via.placeholder.com/150",
+    imgSrc: "https://via.placeholder.com/147",
     time: "01:34",
   },
   {
@@ -41,7 +42,7 @@ export const TASKS: tTask[] = [
     users: [USERS[3]],
     contractor: USERS[2],
     author: USERS[1],
-    imgSrc: "https://via.placeholder.com/150",
+    imgSrc: "https://via.placeholder.com/149",
     time: "00:00",
   },
   {
@@ -55,7 +56,7 @@ export const TASKS: tTask[] = [
     users: [USERS[2], USERS[4]],
     contractor: USERS[0],
     author: USERS[1],
-    imgSrc: "https://via.placeholder.com/150",
+    imgSrc: "https://via.placeholder.com/149",
     time: "42:00",
   },
   {

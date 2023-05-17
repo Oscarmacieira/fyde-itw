@@ -4,6 +4,7 @@ import {
   CheckCircle,
   Done,
   MoreHoriz,
+  Pause,
   RadioButtonChecked,
   RadioButtonUnchecked,
 } from "@mui/icons-material";
@@ -40,20 +41,41 @@ interface TaskListCardProps {
   selected?: boolean;
   task?: tTask;
   done?: boolean;
+  onClick?: () => void;
+  onClickOpen?: (task?: tTask) => void;
+  onClickDelete?: (task?: tTask) => void;
+  onClickClone?: (task?: tTask) => void;
 }
 
 export default function TaskListCard({
   selected = true,
   task,
   done,
+  onClick,
+  onClickOpen,
+  onClickDelete,
+  onClickClone,
 }: TaskListCardProps) {
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
   const { isSm } = useBreakpoints();
   const actions = [
-    "Open",
-    "Get Link",
-    "Clone",
-    { text: "Delete", color: "error.main" },
+    {
+      text: "Open",
+      onClick: () => onClickOpen?.(task),
+    },
+    {
+      text: "Get Link",
+      onClick: () => onClickOpen?.(task),
+    },
+    {
+      text: "Clone",
+      onClick: () => onClickClone?.(task),
+    },
+    {
+      text: "Delete",
+      color: "error.main",
+      onClick: () => onClickDelete?.(task),
+    },
   ];
 
   const taskDetails = (
@@ -67,6 +89,18 @@ export default function TaskListCard({
       <Typography variant="subtitle1" fontWeight={"bold"}>
         {task?.time}
       </Typography>
+      {task?.status === "In Progress" && (
+        <IconButton
+          disableFocusRipple
+          disableRipple
+          sx={{
+            bgcolor: "primary.main",
+            color: "white",
+          }}
+        >
+          <Pause />
+        </IconButton>
+      )}
       <AvatarList users={task?.users} />
     </Stack>
   );
@@ -85,6 +119,7 @@ export default function TaskListCard({
           cursor: "pointer",
         },
       }}
+      onClick={onClick}
     >
       <ListItem
         secondaryAction={

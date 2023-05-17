@@ -1,9 +1,14 @@
 "use client";
 
-import { AttachFile, KeyboardArrowDown } from "@mui/icons-material";
+import { tTask } from "@/types";
+import { AttachFile, KeyboardArrowDown, Task } from "@mui/icons-material";
 import { Button, Card, CardMedia, Stack, Typography } from "@mui/material";
 
-export default function TaskDescription() {
+interface TaskDescriptionProps {
+  task?: tTask;
+}
+
+export default function TaskDescription({ task }: TaskDescriptionProps) {
   return (
     <Card
       elevation={0}
@@ -39,14 +44,12 @@ export default function TaskDescription() {
           <span style={{ fontSize: "1.5rem", position: "relative", top: 3 }}>
             •
           </span>{" "}
-          Normal Priority
+          {task?.priority} Priority
         </Typography>
       </Stack>
-      <Typography>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-      </Typography>
+      <Typography>{task?.description}</Typography>
       <CardMedia
-        src="https://picsum.photos/200/300"
+        src={task?.imgSrc}
         component="img"
         sx={{
           borderRadius: 4,

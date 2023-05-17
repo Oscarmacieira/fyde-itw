@@ -9,7 +9,12 @@ import Battery20Icon from "@mui/icons-material/Battery20";
 import Battery60Icon from "@mui/icons-material/Battery60";
 import BatteryStdIcon from "@mui/icons-material/BatteryStd";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { tMenu, tMenuList } from "@/types";
+import { tMenu, tMenuList, tSelectedMenu } from "@/types";
+
+export const DEFAULT_SELECTED_MENU: tSelectedMenu = {
+  main: undefined,
+  sub: undefined,
+};
 
 export const SIDEBAR_MENUS: tMenu[] = [
   {

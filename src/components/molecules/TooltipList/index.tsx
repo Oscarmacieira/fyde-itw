@@ -3,7 +3,7 @@
 import { ListItem, ListItemButton, ListItemText } from "@mui/material";
 
 interface TooltipListProps {
-  actions: Array<string | { text: string; color?: string }>;
+  actions: Array<{ text: string; color?: string; onClick: () => void }>;
 }
 
 export default function TooltipList({ actions }: TooltipListProps) {
@@ -19,7 +19,7 @@ export default function TooltipList({ actions }: TooltipListProps) {
           }}
           key={index}
         >
-          <ListItemButton>
+          <ListItemButton onClick={action.onClick}>
             <ListItemText
               primary={typeof action === "string" ? action : action.text}
               primaryTypographyProps={{

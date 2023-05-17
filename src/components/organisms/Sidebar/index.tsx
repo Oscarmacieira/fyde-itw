@@ -1,54 +1,53 @@
 "use client";
 
+import React from "react";
 import {
   Box,
-  Divider,
-  Drawer,
+  Toolbar,
   IconButton,
+  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
 } from "@mui/material";
-import { DrawerHeader } from "./style";
+import { SIDEBAR_WIDTH } from "@/constants/dimensions";
 import { tMenu } from "@/types";
+import { useNavigation } from "@/hooks";
 
-export interface SidebarProps {
-  open?: boolean;
-  menus?: tMenu[];
+interface SideBarProps {
   logo?: React.ReactNode;
-  selected?: number;
 }
 
-export default function Sidebar({
-  open = true,
-  menus,
-  logo,
-  selected,
-}: SidebarProps) {
+export default function SideBar({ logo }: SideBarProps) {
+  const { menus } = useNavigation();
   return (
-    <Drawer
-      open={true}
-      variant="permanent"
+    <Box
+      width={SIDEBAR_WIDTH}
+      height={"100%"}
       sx={{
-        borderRadius: 0,
-        bgcolor: "white",
-        minHeight: "100vh",
+        borderRight: "1px solid",
+        borderColor: "divider",
       }}
     >
-      <DrawerHeader>
+      <Toolbar>
         <IconButton disableRipple disableFocusRipple>
           {logo}
         </IconButton>
-      </DrawerHeader>
+      </Toolbar>
       <Divider />
       <Box
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
         height={"100%"}
+        width={"100%"}
       >
-        <List>
+        <List
+          sx={{
+            width: "100%",
+          }}
+        >
           {menus?.map((menu, index) => (
             <ListItem key={menu.id} disablePadding sx={{ display: "block" }}>
               <ListItemButton
@@ -57,11 +56,10 @@ export default function Sidebar({
                   aspectRatio: 1,
                   justifyContent: "center",
                 }}
-                selected={index === selected}
+                selected={index === 1}
               >
                 <ListItemIcon
                   sx={{
-                    width: "100%",
                     mr: "auto",
                     justifyContent: "center",
                   }}
@@ -73,6 +71,6 @@ export default function Sidebar({
           ))}
         </List>
       </Box>
-    </Drawer>
+    </Box>
   );
 }

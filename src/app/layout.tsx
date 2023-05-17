@@ -1,4 +1,6 @@
-import { ThemeProvider } from "@/providers";
+import { ResponsiveDrawer } from "@/components";
+import { NavigationProvider, TaskProvider, ThemeProvider } from "@/providers";
+import Image from "next/image";
 
 export const metadata = {
   title: "Fyde Interview",
@@ -17,7 +19,25 @@ export default function RootLayout({ children }: RootLayoutProps) {
           background: "#ffffff",
         }}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <NavigationProvider>
+            <TaskProvider>
+              <ResponsiveDrawer
+                logo={
+                  <Image
+                    src="/logo.png"
+                    alt="Logo"
+                    width={30}
+                    height={30}
+                    priority
+                  />
+                }
+              >
+                {children}
+              </ResponsiveDrawer>
+            </TaskProvider>
+          </NavigationProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

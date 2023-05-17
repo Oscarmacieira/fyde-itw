@@ -27,235 +27,27 @@ import {
   ExpandMore,
 } from "@mui/icons-material";
 import { Button, Collapse, Container, Grid, Stack } from "@mui/material";
-import { useBreakpoints } from "@/hooks";
+import { useBreakpoints, useNavigation } from "@/hooks";
+import { MenuNav, Sidebar } from "..";
 
 interface ResponsiveDrawerProps {
   window?: () => Window;
   children?: React.ReactNode;
-  menus?: tMenu[];
-  subMenus?: tMenuList[];
   logo?: React.ReactNode;
 }
 
 export default function ResponsiveDrawer({
   window,
   children,
-  menus,
-  subMenus,
   logo,
 }: ResponsiveDrawerProps) {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { mobileOpen, handleDrawerToggle } = useNavigation();
   const { isSm } = useBreakpoints();
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  const [open, setOpen] = React.useState<number | undefined>(undefined);
-
-  const handleOpen = (val: number | undefined) => {
-    if (open === val) {
-      setOpen(undefined);
-    } else {
-      setOpen(val);
-    }
-  };
-
-  const [selected, setSelected] = React.useState<{
-    main: number | undefined;
-    sub: number | undefined;
-  }>({
-    main: undefined,
-    sub: undefined,
-  });
-
-  const handleClick = (main: number | undefined, sub: number | undefined) => {
-    setSelected({ main, sub });
-  };
-
-  function isOpen(val: number) {
-    return open === val;
-  }
-
-  function isSelected(val: number) {
-    return selected?.main === val;
-  }
-
-  function isSubMenuSelected(sub: number, main: number) {
-    return selected?.sub === sub && selected?.main === main;
-  }
 
   const drawer = (
     <Box display={"flex"} height={"100%"}>
-      <Box
-        width={SIDEBAR_WIDTH}
-        height={"100%"}
-        sx={{
-          borderRight: "1px solid",
-          borderColor: "divider",
-        }}
-      >
-        <Toolbar>
-          <IconButton disableRipple disableFocusRipple>
-            {logo}
-          </IconButton>
-        </Toolbar>
-        <Divider />
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          height={"100%"}
-          width={"100%"}
-        >
-          <List
-            sx={{
-              width: "100%",
-            }}
-          >
-            {menus?.map((menu, index) => (
-              <ListItem key={menu.id} disablePadding sx={{ display: "block" }}>
-                <ListItemButton
-                  onClick={menu.onClick}
-                  sx={{
-                    aspectRatio: 1,
-                    justifyContent: "center",
-                  }}
-                  selected={index === 1}
-                >
-                  <ListItemIcon
-                    sx={{
-                      mr: "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {menu.icon}
-                  </ListItemIcon>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Box>
-      <Box
-        width="100%"
-        bgcolor={"#eef3fe"}
-        height={"100%"}
-        position={"relative"}
-      >
-        <Toolbar>
-          <Stack
-            direction={"row"}
-            spacing={3}
-            alignItems={"center"}
-            justifyContent={"flex-start"}
-            width={"100%"}
-          >
-            <IconButton
-              sx={{
-                bgcolor: (theme) => theme.palette.primary.main + "1a",
-                color: "primary.main",
-              }}
-              size="small"
-              onClick={() => {
-                if (isSm) {
-                  handleDrawerToggle();
-                }
-              }}
-            >
-              <ArrowBack />
-            </IconButton>
-            <Typography variant="h6" fontWeight={"bold"}>
-              Project CRM
-            </Typography>
-            <IconButton
-              disableRipple
-              size="small"
-              sx={{ bgcolor: "primary.main", color: "white" }}
-            >
-              <Add />
-            </IconButton>
-          </Stack>
-        </Toolbar>
-        <Divider />
-        <List
-          sx={{
-            width: "100%",
-          }}
-        >
-          {subMenus?.map((menu, index) => (
-            <React.Fragment key={menu.id}>
-              <ListItemButton
-                onClick={() => {
-                  handleOpen(index);
-                }}
-                sx={{
-                  height: 70,
-                }}
-              >
-                {menu.icon && <ListItemIcon sx={{}}>{menu.icon}</ListItemIcon>}
-                <ListItemText
-                  primary={menu.name}
-                  primaryTypographyProps={{
-                    sx: {
-                      transition: "all 0.2s ease-in-out",
-                    },
-                    fontWeight: isOpen(index) ? "bold" : "normal",
-                  }}
-                />
-                <IconButton
-                  sx={{
-                    bgcolor: (theme) => theme.palette.primary.main + "1a",
-                    color: "primary.main",
-                  }}
-                  size="small"
-                >
-                  {isOpen(index) ? <ExpandLess /> : <ExpandMore />}
-                </IconButton>
-              </ListItemButton>
-              {index !== subMenus.length - 1 && <Divider sx={{ mx: 2 }} />}
-              <Collapse in={isOpen(index)} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  {menu.subMenus?.map((subMenu, subIndex) => (
-                    <ListItemButton
-                      sx={{ pl: 8 }}
-                      key={`sub-${subMenu.id}`}
-                      onClick={() => {
-                        handleClick(index, subIndex);
-                        handleDrawerToggle();
-                      }}
-                    >
-                      <ListItemText
-                        primary={subMenu.name}
-                        primaryTypographyProps={{
-                          sx: {
-                            transition: "all 0.2s ease-in-out",
-                          },
-                          fontWeight: isSubMenuSelected(subIndex, index)
-                            ? "bold"
-                            : "normal",
-                        }}
-                      />
-                    </ListItemButton>
-                  ))}
-                </List>
-              </Collapse>
-            </React.Fragment>
-          ))}
-        </List>
-        <Button
-          startIcon={<Add />}
-          variant={"contained"}
-          endIcon={<AppRegistration />}
-          sx={{
-            position: "absolute",
-            bottom: 20,
-            width: 255,
-            mx: 2,
-          }}
-        >
-          Create New Project
-        </Button>
-      </Box>
+      <Sidebar logo={logo} />
+      <MenuNav />
     </Box>
   );
 

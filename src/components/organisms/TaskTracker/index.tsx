@@ -1,18 +1,25 @@
 "use client";
 
+import { tTask } from "@/types";
 import { Done, Pause } from "@mui/icons-material";
 import {
   Box,
   Button,
   Card,
+  Chip,
   Divider,
   Icon,
   IconButton,
   Stack,
   Typography,
 } from "@mui/material";
+import { orange } from "@mui/material/colors";
 
-export default function TaskTracker() {
+interface TaskTrackerProps {
+  task?: tTask;
+}
+
+export default function TaskTracker({ task }: TaskTrackerProps) {
   return (
     <Card
       elevation={0}
@@ -28,6 +35,20 @@ export default function TaskTracker() {
         alignItems: "center",
       }}
     >
+      <Chip
+        label={"TIMER IS ON"}
+        sx={{
+          color: "white",
+          bgcolor: orange[500],
+          borderRadius: 2,
+          width: "fit-content",
+          fontSize: "0.8rem",
+          fontWeight: "bold",
+          position: "absolute",
+          top: 8,
+          left: 8,
+        }}
+      />
       <Typography
         variant="overline"
         textTransform="none"
@@ -35,7 +56,7 @@ export default function TaskTracker() {
         component="div"
         width="100%"
       >
-        Task #78
+        Task #{task?.id}
       </Typography>
       <Typography
         variant="h6"
@@ -44,7 +65,7 @@ export default function TaskTracker() {
         width="100%"
         textAlign={"center"}
       >
-        Create project page with tabs
+        {task?.title}
       </Typography>
       <Typography
         fontWeight={"light"}
@@ -53,7 +74,7 @@ export default function TaskTracker() {
         width="100%"
         textAlign={"center"}
       >
-        01:34
+        {task?.time}
       </Typography>
       <Stack
         direction={"row"}
