@@ -32,7 +32,7 @@ export default function TaskDetails() {
             alignItems={"center"}
             justifyContent={"space-between"}
           >
-            <Typography variant="h5" fontWeight={900} component="div">
+            <Typography variant="h6" fontWeight={900}>
               Task Description
             </Typography>
             <IconButton
@@ -57,14 +57,22 @@ export default function TaskDetails() {
               <UserAvatar srcSet={selectedTask?.contractor.src || ""} />
               <UserInfo
                 primary={"Contractor"}
-                secondary={selectedTask?.contractor.name}
+                secondary={
+                  selectedTask?.contractor.name +
+                  " " +
+                  selectedTask?.contractor.surname?.charAt(0)
+                }
               />
             </ListItem>
             <Divider orientation="vertical" flexItem sx={{ my: 2 }} />
             <ListItem disableGutters>
               <UserInfo
                 primary={"Author"}
-                secondary={selectedTask?.author.name}
+                secondary={
+                  selectedTask?.author.name +
+                  " " +
+                  selectedTask?.author.surname?.charAt(0)
+                }
                 align="right"
               />
               <UserAvatar
@@ -98,6 +106,8 @@ export default function TaskDetails() {
           sx={{
             color: "error.main",
             borderRadius: 50,
+            px: 1,
+            py: 0,
           }}
           onClick={onClickDelete}
         >

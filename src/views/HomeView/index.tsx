@@ -54,6 +54,7 @@ export default function HomeView() {
             sx={{ mr: 0, ml: "auto", mt: isSm ? 2 : 0, gap: 2 }}
             display={"flex"}
             flexDirection={"column"}
+            width={"100%"}
           >
             <TimeTracking />
             <TaskDetails />

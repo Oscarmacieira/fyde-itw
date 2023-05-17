@@ -79,7 +79,7 @@ export default function TaskListCard({
   ];
 
   const taskDetails = (
-    <Stack direction="row" spacing={2} gap={2} px={2} alignItems="center">
+    <Stack direction="row" spacing={2} gap={0} px={2} alignItems="center">
       <Typography textTransform={"none"} sx={{ opacity: 0.5 }}>
         {task?.status}
       </Typography>

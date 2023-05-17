@@ -86,7 +86,7 @@ export default function ResponsiveDrawer({
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" fontWeight={"bold"}>
+            <Typography variant="subtitle1" fontWeight={"bold"}>
               Project CRM
             </Typography>
             <IconButton

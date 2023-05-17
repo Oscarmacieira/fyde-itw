@@ -66,7 +66,7 @@ export default function MenuNav({}) {
           >
             <ArrowBack />
           </IconButton>
-          <Typography variant="h6" fontWeight={"bold"}>
+          <Typography variant="subtitle1" fontWeight={"bold"}>
             Project CRM
           </Typography>
           <IconButton
@@ -157,7 +157,7 @@ export default function MenuNav({}) {
         sx={{
           position: "absolute",
           bottom: 20,
-          width: 255,
+          width: 230,
           mx: 2,
           py: 1.75,
         }}

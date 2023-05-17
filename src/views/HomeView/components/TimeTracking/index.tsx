@@ -19,7 +19,7 @@ export default function TimeTracking() {
         alignItems={"center"}
         justifyContent={"space-between"}
       >
-        <Typography variant="h5" fontWeight={900} component="div">
+        <Typography variant="h6" fontWeight={900}>
           Time Tracking
         </Typography>
         <Button
@@ -28,6 +28,7 @@ export default function TimeTracking() {
           sx={{
             color: "primary.main",
             borderRadius: 50,
+            px: 1,
           }}
           onClick={onClickHide}
           endIcon={<ArrowForward />}

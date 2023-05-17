@@ -36,7 +36,7 @@ export default function InfoCard({
             <span
               style={{
                 opacity: 0.5,
-                fontSize: "1rem",
+                fontSize: "0.8rem",
                 marginLeft: "0.5rem",
               }}
             >

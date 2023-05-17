@@ -49,9 +49,10 @@ export default function TaskList({
           <Stack width={"100%"} direction={"row"} gap={2} alignItems="center">
             <Stack direction="row" alignItems="center">
               <Typography
-                variant={isSm ? "h6" : "h4"}
+                variant={isSm ? "h6" : "h5"}
                 fontWeight={"light"}
                 component="div"
+                minWidth={"105px"}
               >
                 Tasks List
               </Typography>
@@ -73,13 +74,13 @@ export default function TaskList({
             justifyContent={isSm ? "flex-start" : "flex-end"}
           >
             <Typography
-              variant="subtitle1"
+              variant="body1"
               fontWeight={"light"}
               width={"fit-content"}
               sx={{ opacity: 0.5 }}
               fontSize={"large"}
             >
-              200 elements
+              {tasks?.length} element(s)
             </Typography>
             <Divider orientation="vertical" flexItem sx={{ my: 1 }} />
             <IconButton sx={{ borderRadius: 4 }}>

@@ -24,6 +24,9 @@ const lightTheme = createTheme({
       default: "#f7f8fa",
     },
   },
+  typography: {
+    fontSize: 12,
+  },
   components: {
     MuiButton: {
       styleOverrides: {

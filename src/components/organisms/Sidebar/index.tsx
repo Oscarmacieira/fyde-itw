@@ -30,8 +30,19 @@ export default function SideBar({ logo }: SideBarProps) {
         borderColor: "divider",
       }}
     >
-      <Toolbar>
-        <IconButton disableRipple disableFocusRipple>
+      <Toolbar
+        sx={{
+          width: "100%",
+        }}
+      >
+        <IconButton
+          sx={{
+            width: "100%",
+            height: "100%",
+          }}
+          disableRipple
+          disableFocusRipple
+        >
           {logo}
         </IconButton>
       </Toolbar>

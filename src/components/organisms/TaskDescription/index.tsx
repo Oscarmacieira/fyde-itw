@@ -35,6 +35,7 @@ export default function TaskDescription({ task }: TaskDescriptionProps) {
           color="primary"
           sx={{
             borderRadius: 2,
+            px: 1,
           }}
           endIcon={<KeyboardArrowDown />}
         >

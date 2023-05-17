@@ -12,6 +12,7 @@ export type tMenuList = tMenu & {
 export type tUser = {
   id: number;
   name: string;
+  surname: string;
   src: string;
 };
 

@@ -32,7 +32,7 @@ export const primaryTypographyStyles: SxProps<Theme> = {
 };
 
 export const secondaryTypographyStyles: SxProps<Theme> = {
-  variant: "h5",
+  variant: "h6",
   color: "black",
   fontWeight: "lighter",
   display: "flex",
