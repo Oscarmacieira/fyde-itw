@@ -122,7 +122,7 @@ export default function TaskTracker({ task }: TaskTrackerProps) {
           disableTouchRipple
           sx={{ color: "secondary.main" }}
           disableFocusRipple
-          startIcon={
+          endIcon={
             <Box
               sx={{
                 bgcolor: "secondary.main",
