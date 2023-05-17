@@ -83,10 +83,10 @@ export default function TaskDetails() {
         justifyContent={"space-between"}
       >
         <Box>
-          <Typography sx={{ opacity: 0.55 }} component="div">
+          <Typography sx={{ opacity: 0.55 }} variant="body2" component="div">
             Created {selectedTask?.createdAt}
           </Typography>
-          <Typography sx={{ opacity: 0.55 }} component="div">
+          <Typography sx={{ opacity: 0.55 }} variant="body2" component="div">
             Updated {selectedTask?.updatedAt}
           </Typography>
         </Box>

@@ -91,11 +91,12 @@ export default function TaskListCard({
       </Typography>
       {task?.status === "In Progress" && (
         <IconButton
-          disableFocusRipple
-          disableRipple
           sx={{
             bgcolor: "primary.main",
             color: "white",
+            "&:hover": {
+              color: "primary.main",
+            },
           }}
         >
           <Pause />
