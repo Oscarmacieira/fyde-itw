@@ -42,27 +42,6 @@ interface TaskListCardProps {
   done?: boolean;
 }
 
-interface TaskListDetailsProps {
-  task?: tTask;
-}
-
-const TaskListDetails = ({ task }: TaskListDetailsProps) => {
-  return (
-    <Stack direction="row" spacing={2} gap={2} px={2} alignItems="center">
-      <Typography textTransform={"none"} sx={{ opacity: 0.5 }}>
-        {task?.status}
-      </Typography>
-      <Typography textTransform={"none"} sx={{ opacity: 0.5 }}>
-        •
-      </Typography>
-      <Typography variant="subtitle1" fontWeight={"bold"}>
-        {task?.time}
-      </Typography>
-      <AvatarList users={task?.users} />
-    </Stack>
-  );
-};
-
 export default function TaskListCard({
   selected = true,
   task,
@@ -77,6 +56,21 @@ export default function TaskListCard({
     { text: "Delete", color: "error.main" },
   ];
 
+  const taskDetails = (
+    <Stack direction="row" spacing={2} gap={2} px={2} alignItems="center">
+      <Typography textTransform={"none"} sx={{ opacity: 0.5 }}>
+        {task?.status}
+      </Typography>
+      <Typography textTransform={"none"} sx={{ opacity: 0.5 }}>
+        •
+      </Typography>
+      <Typography variant="subtitle1" fontWeight={"bold"}>
+        {task?.time}
+      </Typography>
+      <AvatarList users={task?.users} />
+    </Stack>
+  );
+
   return (
     <Card
       sx={{
@@ -84,88 +78,94 @@ export default function TaskListCard({
         width: "100%",
         bgcolor: selected ? "primary.light" : "white",
         boxShadow: selected ? "none" : cardShadow.boxShadow,
+        py: 1,
+        transition: "all 0.2s ease-in-out",
+        "&:hover": {
+          bgcolor: "#8484841c",
+          cursor: "pointer",
+        },
       }}
     >
-      <CardActionArea sx={{ py: 1 }} disableRipple>
-        <ListItem
-          secondaryAction={
-            <Stack direction="row" spacing={2} gap={2} alignItems="center">
-              {!isSm && <TaskListDetails task={task} />}
-              <Tooltip
-                arrow={true}
-                open={isTooltipOpen}
-                onClose={() => setIsTooltipOpen(false)}
-                componentsProps={{
-                  arrow: { sx: tooltipArrowStyles },
-                  tooltip: { sx: tooltipStyles },
+      <ListItem
+        secondaryAction={
+          <Stack direction="row" spacing={2} gap={2} alignItems="center">
+            {!isSm && taskDetails}
+            <Tooltip
+              arrow={true}
+              open={isTooltipOpen}
+              onClose={() => setIsTooltipOpen(false)}
+              componentsProps={{
+                arrow: { sx: tooltipArrowStyles },
+                tooltip: { sx: tooltipStyles },
+              }}
+              title={
+                <List disablePadding>
+                  <TooltipList actions={actions} />
+                </List>
+              }
+            >
+              <MoreHoriz
+                onClick={() => setIsTooltipOpen(true)}
+                sx={{
+                  borderRadius: 2,
+                  color: "primary.main",
+                  bgcolor: "primary.light",
                 }}
-                title={
-                  <List disablePadding>
-                    <TooltipList actions={actions} />
-                  </List>
-                }
-              >
-                <IconButton
-                  onClick={() => setIsTooltipOpen(true)}
-                  sx={{
-                    borderRadius: 2,
-                    color: "primary.main",
-                    bgcolor: "primary.light",
-                  }}
-                >
-                  <MoreHoriz />
-                </IconButton>
-              </Tooltip>
-            </Stack>
-          }
-        >
-          <ListItemAvatar>
-            <Checkbox
-              icon={
-                done ? (
-                  <CheckCircle sx={{ color: "success.light" }} />
-                ) : (
-                  <RadioButtonUnchecked />
-                )
-              }
-              checkedIcon={
-                done ? (
-                  <CheckCircle sx={{ color: "success.light" }} />
-                ) : (
-                  <RadioButtonChecked />
-                )
-              }
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primaryTypographyProps={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-            primary={
-              <Typography>
-                {task?.title}
-                <b
-                  style={{
-                    borderRadius: "50%",
-                    color: "red",
-                    marginLeft: "0.5rem",
-                    position: "relative",
-                    top: "5px",
-
-                    fontSize: "1.8rem",
-                    lineHeight: 0,
-                  }}
-                >
-                  •
-                </b>
-              </Typography>
+              />
+            </Tooltip>
+          </Stack>
+        }
+      >
+        <ListItemAvatar>
+          <Checkbox
+            icon={
+              done ? (
+                <CheckCircle sx={{ color: "success.light" }} />
+              ) : (
+                <RadioButtonUnchecked />
+              )
+            }
+            checkedIcon={
+              done ? (
+                <CheckCircle sx={{ color: "success.light" }} />
+              ) : (
+                <RadioButtonChecked />
+              )
             }
           />
-        </ListItem>
-        {isSm && <TaskListDetails task={task} />}
-      </CardActionArea>
+        </ListItemAvatar>
+        <ListItemText
+          primaryTypographyProps={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+          }}
+          primary={
+            <Typography
+              sx={{
+                color: selected ? "primary.main" : "",
+              }}
+            >
+              {task?.title}
+              <b
+                style={{
+                  borderRadius: "50%",
+                  color: "red",
+                  marginLeft: "0.5rem",
+                  position: "relative",
+                  top: "5px",
+
+                  fontSize: "1.8rem",
+                  lineHeight: 0,
+                }}
+              >
+                •
+              </b>
+            </Typography>
+          }
+        />
+      </ListItem>
+      {isSm && taskDetails}
     </Card>
   );
 }

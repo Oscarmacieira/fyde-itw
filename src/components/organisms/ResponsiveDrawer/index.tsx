@@ -27,6 +27,7 @@ import {
   ExpandMore,
 } from "@mui/icons-material";
 import { Button, Collapse, Container, Grid, Stack } from "@mui/material";
+import { useBreakpoints } from "@/hooks";
 
 interface ResponsiveDrawerProps {
   window?: () => Window;
@@ -44,6 +45,7 @@ export default function ResponsiveDrawer({
   logo,
 }: ResponsiveDrawerProps) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { isSm } = useBreakpoints();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -154,7 +156,11 @@ export default function ResponsiveDrawer({
                 color: "primary.main",
               }}
               size="small"
-              onClick={handleDrawerToggle}
+              onClick={() => {
+                if (isSm) {
+                  handleDrawerToggle();
+                }
+              }}
             >
               <ArrowBack />
             </IconButton>

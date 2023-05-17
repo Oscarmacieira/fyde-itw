@@ -16,7 +16,7 @@ const infoCards = [
     sign: "$",
   },
   {
-    primary: "Yours & total time",
+    primary: "Project progress",
     secondary: "34%",
     third: "34/100",
     sign: "%",

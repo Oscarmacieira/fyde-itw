@@ -2,9 +2,11 @@
 
 import { Done, Pause } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Card,
   Divider,
+  Icon,
   IconButton,
   Stack,
   Typography,
@@ -74,13 +76,20 @@ export default function TaskTracker() {
           disableTouchRipple
           sx={{ color: "primary.main" }}
           startIcon={
-            <IconButton
-              disableRipple
-              disableFocusRipple
-              sx={{ bgcolor: "primary.main", color: "white" }}
+            <Box
+              sx={{
+                bgcolor: "primary.main",
+                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 50,
+                width: 34,
+                height: 34,
+              }}
             >
               <Pause fontSize={"small"} />
-            </IconButton>
+            </Box>
           }
         >
           Pause
@@ -93,13 +102,20 @@ export default function TaskTracker() {
           sx={{ color: "secondary.main" }}
           disableFocusRipple
           startIcon={
-            <IconButton
-              disableRipple
-              disableFocusRipple
-              sx={{ bgcolor: "secondary.main", color: "white" }}
+            <Box
+              sx={{
+                bgcolor: "secondary.main",
+                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 50,
+                width: 34,
+                height: 34,
+              }}
             >
               <Done fontSize={"small"} />
-            </IconButton>
+            </Box>
           }
         >
           Complete

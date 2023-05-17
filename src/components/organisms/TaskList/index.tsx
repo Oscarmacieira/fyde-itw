@@ -23,7 +23,7 @@ export default function TaskList({ tasks }: TaskListProps) {
 
   return (
     <React.Fragment>
-      <Toolbar>
+      <Toolbar sx={{ px: 0 }}>
         <Stack
           width={"100%"}
           direction={isSm ? "column" : "row"}
@@ -45,6 +45,8 @@ export default function TaskList({ tasks }: TaskListProps) {
                 <Add fontSize={isSm ? "small" : "medium"} />
               </IconButton>
             </Stack>
+            {isSm && <Box sx={{ flexGrow: 1 }} />}
+
             <AvatarList users={USERS} />
           </Stack>
           <Box sx={{ flexGrow: 1 }} />
@@ -80,9 +82,9 @@ export default function TaskList({ tasks }: TaskListProps) {
           </Stack>
         </Stack>
       </Toolbar>
-      <Stack direction={"column"} gap={2} padding={2} width={"100%"}>
-        {tasks?.map((task) => (
-          <TaskListCard key={task.id} task={task} selected={false} />
+      <Stack direction={"column"} gap={2} py={2} width={"100%"}>
+        {tasks?.map((task, index) => (
+          <TaskListCard key={task.id} task={task} selected={index === 1} />
         ))}
         <Divider />
         <TaskListCard task={tasks?.[0]} done={true} selected={false} />
